@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -26,5 +28,7 @@ public class AutomationPracticeFormTests {
         $("[for=hobbies-checkbox-2").click();
         $("#currentAddress").scrollIntoView(false);
         $("#currentAddress").setValue("47 QA Street");
+        $("#uploadPicture").uploadFile(new File("/Users/mb/Downloads/test.jpeg"));
+        $("#submit").click();
     }
 }
