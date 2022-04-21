@@ -30,7 +30,7 @@ public class AutomationPracticeFormTests {
         $(".react-datepicker__month-select").selectOption("August");
         $(".react-datepicker__year-select").selectOption("1983");
         $(".react-datepicker__day--025").click();
-
+        $("#subjectsInput").setValue("Math").pressEnter();
         $("[for=hobbies-checkbox-2]").click();
         $("#currentAddress").scrollIntoView(false);
         $("#currentAddress").setValue("47 QA Street");
