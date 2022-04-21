@@ -2,15 +2,17 @@ package com.mikkimesser;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.commands.ScrollTo;
+import com.codeborne.selenide.selector.ByText;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class AutomationPracticeFormTests {
 
@@ -21,6 +23,8 @@ public class AutomationPracticeFormTests {
     @Test
     void fillFormTest() {
         open("/automation-practice-form");
+        executeJavaScript("$('footer').remove()");
+        executeJavaScript("$('#fixedban').remove()");
         $("#firstName").setValue("TestName");
         $("#lastName").setValue("TestLastName");
         $("#userEmail").setValue("mail@example.com");
@@ -35,7 +39,10 @@ public class AutomationPracticeFormTests {
         $("#currentAddress").scrollIntoView(false);
         $("#currentAddress").setValue("47 QA Street");
         $("#uploadPicture").uploadFromClasspath("test.jpeg");
-        $(".css-yk16xz-control").scrollIntoView(false);
+        //$("#react-select-3-input").scrollIntoView(false);
+        //$("#react-select-3-input").setValue("NCR");
+        //$("#react-select-3-input").click();
+        //$(byText("NCR")).click();
         $("#submit").click();
     }
 }
