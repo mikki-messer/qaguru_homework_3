@@ -23,8 +23,10 @@ public class AutomationPracticeFormTests {
     @Test
     void fillFormTest() {
         open("/automation-practice-form");
+        //hide the banner on the small screen to check if the test works
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
+        //
         $("#firstName").setValue("TestName");
         $("#lastName").setValue("TestLastName");
         $("#userEmail").setValue("mail@example.com");
@@ -39,10 +41,11 @@ public class AutomationPracticeFormTests {
         $("#currentAddress").scrollIntoView(false);
         $("#currentAddress").setValue("47 QA Street");
         $("#uploadPicture").uploadFromClasspath("test.jpeg");
-        //$("#react-select-3-input").scrollIntoView(false);
-        //$("#react-select-3-input").setValue("NCR");
-        //$("#react-select-3-input").click();
-        //$(byText("NCR")).click();
+        $(byText("Select State")).scrollIntoView(false);
+        $(byText("Select State")).click();
+        $(byText("NCR")).click();
+        $(byText("Select City")).click();
+        $(byText("Gurgaon")).click();
         $("#submit").click();
     }
 }
