@@ -22,16 +22,28 @@ public class AutomationPracticeFormTests {
     }
     @Test
     void fillFormTest() {
+        String firstName = "Harry";
+        String lastName = "Dirty";
+        String email = "mail@example.com";
+        String phoneNumber = "1234567890";
+        String year = "1983";
+        String month = "August";
+        String dt = "25";
+        String address = "47 QA Street";
+        String state = "NCR";
+        String city = "Gurgaon";
+        String pictureName = "test.jpeg";
+
         open("/automation-practice-form");
         //hide the banner on the small screen to check if the test works
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
         //
-        $("#firstName").setValue("TestName");
-        $("#lastName").setValue("TestLastName");
-        $("#userEmail").setValue("mail@example.com");
+        $("#firstName").setValue(firstName);
+        $("#lastName").setValue(lastName);
+        $("#userEmail").setValue(email);
         $("[for=gender-radio-1]").click();
-        $("#userNumber").setValue("1234567890");
+        $("#userNumber").setValue(phoneNumber);
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("August");
         $(".react-datepicker__year-select").selectOption("1983");
@@ -39,13 +51,13 @@ public class AutomationPracticeFormTests {
         $("#subjectsInput").setValue("Math").pressEnter();
         $("[for=hobbies-checkbox-2]").click();
         $("#currentAddress").scrollIntoView(false);
-        $("#currentAddress").setValue("47 QA Street");
-        $("#uploadPicture").uploadFromClasspath("test.jpeg");
+        $("#currentAddress").setValue(address);
+        $("#uploadPicture").uploadFromClasspath(pictureName);
         $(byText("Select State")).scrollIntoView(false);
         $(byText("Select State")).click();
-        $(byText("NCR")).click();
+        $(byText(state)).click();
         $(byText("Select City")).click();
-        $(byText("Gurgaon")).click();
+        $(byText(city)).click();
         $("#submit").click();
     }
 }
