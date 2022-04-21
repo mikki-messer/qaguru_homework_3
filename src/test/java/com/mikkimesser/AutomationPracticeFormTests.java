@@ -5,6 +5,7 @@ import com.codeborne.selenide.commands.ScrollTo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 import java.io.File;
 
@@ -25,10 +26,16 @@ public class AutomationPracticeFormTests {
         $("#userEmail").setValue("mail@example.com");
         $("[for=gender-radio-1]").click();
         $("#userNumber").setValue("1234567890");
-        $("[for=hobbies-checkbox-2").click();
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOption("August");
+        $(".react-datepicker__year-select").selectOption("1983");
+        $(".react-datepicker__day--025").click();
+
+        $("[for=hobbies-checkbox-2]").click();
         $("#currentAddress").scrollIntoView(false);
         $("#currentAddress").setValue("47 QA Street");
-        $("#uploadPicture").uploadFile(new File("/Users/mb/Downloads/test.jpeg"));
+        $("#uploadPicture").uploadFromClasspath("test.jpeg");
+        $(".css-yk16xz-control").scrollIntoView(false);
         $("#submit").click();
     }
 }
