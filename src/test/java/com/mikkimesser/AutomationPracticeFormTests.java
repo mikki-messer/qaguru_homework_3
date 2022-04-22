@@ -65,5 +65,13 @@ public class AutomationPracticeFormTests {
         $(byText("Select City")).click();
         $(byText(city)).click();
         $("#submit").click();
+
+        //Asserting the results table is shown
+        $("#example-modal-sizes-title-lg").shouldBe(Condition.visible);
+        $("#example-modal-sizes-title-lg").shouldHave(Condition.text("Thanks for submitting the form"));
+
+        //closing the form
+        $("#closeLargeModal").click();
+        $("#example-modal-sizes-title-lg").shouldNotBe(Condition.visible);
     }
 }
