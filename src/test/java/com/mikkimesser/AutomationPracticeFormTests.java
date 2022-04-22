@@ -14,6 +14,7 @@ import org.openqa.selenium.Keys;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -38,6 +39,8 @@ public class AutomationPracticeFormTests {
         String pictureName = "test.jpeg";
         String subjShort = "Ma";
         String subjLong = "Maths";
+        String gender = "Male";
+        String hobby = "Reading";
 
         open("/automation-practice-form");
         //hide the banner on the small screen to check if the test works
@@ -47,7 +50,7 @@ public class AutomationPracticeFormTests {
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
         $("#userEmail").setValue(email);
-        $(byText("Male")).click();
+        $(byText(gender)).click();
         $("#userNumber").setValue(phoneNumber);
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption(month);
@@ -55,7 +58,7 @@ public class AutomationPracticeFormTests {
 
         $(byAttribute("aria-label*",month+" "+dt.replaceFirst ("^0*", ""))).click();
         $("#subjectsInput").setValue(subjShort).pressEnter();
-        $("[for=hobbies-checkbox-2]").click();
+        $(byText(hobby)).click();
         $("#currentAddress").scrollIntoView(false);
         $("#currentAddress").setValue(address);
         $("#uploadPicture").uploadFromClasspath(pictureName);
@@ -68,7 +71,18 @@ public class AutomationPracticeFormTests {
 
         //Asserting the results table is shown
         $("#example-modal-sizes-title-lg").shouldBe(Condition.visible);
-        $("#example-modal-sizes-title-lg").shouldHave(Condition.text("Thanks for submitting the form"));
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        $(".table-responsive").shouldHave(text("Student Name"+" "+firstName+" "+lastName),
+                text("Student Email"+" "+email),
+                text("Gender"+" "+gender),
+                text("Mobile"+" "+phoneNumber),
+                text("Date of Birth"+" "+dt+" "+month+","+year),
+                text("Subjects"+" "+subjLong),
+                text("Hobbies"+" "+hobby),
+                text("Picture"+" "+pictureName),
+                text("Address"+ " "+address),
+                text("State and City "+" "+state+" "+" "+city));
+
 
         //closing the form
         $("#closeLargeModal").click();
