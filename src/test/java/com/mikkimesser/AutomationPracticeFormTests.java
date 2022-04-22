@@ -23,7 +23,9 @@ public class AutomationPracticeFormTests {
     @BeforeAll static void setUp() {
         Configuration.holdBrowserOpen = true;
         Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserSize = "1280x720";
     }
+
     @Test
     void fillFormTest() {
         String firstName = "Harry";
@@ -46,7 +48,8 @@ public class AutomationPracticeFormTests {
         //hide the banner on the small screen to check if the test works
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
-        //
+
+        //filling the fields
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
         $("#userEmail").setValue(email);
@@ -55,7 +58,6 @@ public class AutomationPracticeFormTests {
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption(month);
         $(".react-datepicker__year-select").selectOption(year);
-
         $(byAttribute("aria-label*",month+" "+dt.replaceFirst ("^0*", ""))).click();
         $("#subjectsInput").setValue(subjShort).pressEnter();
         $(byText(hobby)).click();
@@ -72,6 +74,8 @@ public class AutomationPracticeFormTests {
         //Asserting the results table is shown
         $("#example-modal-sizes-title-lg").shouldBe(Condition.visible);
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+
+        //Asserting the field values
         $(".table-responsive").shouldHave(text("Student Name"+" "+firstName+" "+lastName),
                 text("Student Email"+" "+email),
                 text("Gender"+" "+gender),
@@ -83,8 +87,7 @@ public class AutomationPracticeFormTests {
                 text("Address"+ " "+address),
                 text("State and City "+" "+state+" "+" "+city));
 
-
-        //closing the form
+        //closing the form and asserting it closes
         $("#closeLargeModal").click();
         $("#example-modal-sizes-title-lg").shouldNotBe(Condition.visible);
     }
