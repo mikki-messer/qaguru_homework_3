@@ -14,8 +14,7 @@ import org.openqa.selenium.Keys;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.withText;
+import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AutomationPracticeFormTests {
@@ -32,7 +31,7 @@ public class AutomationPracticeFormTests {
         String phoneNumber = "1234567890";
         String year = "1983";
         String month = "August";
-        String dt = "02";
+        String dt = "31";
         String address = "47 QA Street";
         String state = "NCR";
         String city = "Gurgaon";
@@ -54,9 +53,7 @@ public class AutomationPracticeFormTests {
         $(".react-datepicker__month-select").selectOption(month);
         $(".react-datepicker__year-select").selectOption(year);
 
-        ElementsCollection days = $$(".react-datepicker__day--0"+dt);
-        days.excludeWith(Condition.cssClass("react-datepicker__day--outside-month")).get(0).click();
-
+        $(byAttribute("aria-label*",month+" "+dt.replaceFirst ("^0*", ""))).click();
         $("#subjectsInput").setValue(subjShort).pressEnter();
         $("[for=hobbies-checkbox-2]").click();
         $("#currentAddress").scrollIntoView(false);
