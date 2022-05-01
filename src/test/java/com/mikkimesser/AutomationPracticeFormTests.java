@@ -69,16 +69,15 @@ public class AutomationPracticeFormTests {
         $(".react-datepicker__month-select").selectOption(month);
         $(".react-datepicker__year-select").selectOption(year);
         $(".react-datepicker__day--0"+dt+":not(.react-datepicker__day--outside-month)").click();
-        //$(byAttribute("aria-label*",month+" "+dt.replaceFirst ("^0*", ""))).click();
         $("#subjectsInput").setValue(subjShort).pressEnter();
         $("#hobbiesWrapper").$(byText(hobby)).click();
         $("#currentAddress").scrollIntoView(false);
         $("#currentAddress").setValue(address);
         $("#uploadPicture").uploadFromClasspath(pictureName);
         $(byText("Select State")).scrollIntoView(false);
-        $("#stateCity-wrapper").$(byText("Select State")).click();
+        $("#state").click();
         $("#stateCity-wrapper").$(byText(state)).click();
-        $("#stateCity-wrapper").$(byText("Select City")).click();
+        $("#city").click();
         $("#stateCity-wrapper").$(byText(city)).click();
         $("#submit").click();
 
