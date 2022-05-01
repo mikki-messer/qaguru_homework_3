@@ -62,23 +62,24 @@ public class AutomationPracticeFormTests {
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
         $("#userEmail").setValue(email);
-        $(byText(gender)).click();
+        $("#genterWrapper").$(byText(gender)).click();
 
         $("#userNumber").setValue(phoneNumber);
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption(month);
         $(".react-datepicker__year-select").selectOption(year);
-        $(byAttribute("aria-label*",month+" "+dt.replaceFirst ("^0*", ""))).click();
+        $(".react-datepicker__day--0"+dt+":not(.react-datepicker__day--outside-month)").click();
+        //$(byAttribute("aria-label*",month+" "+dt.replaceFirst ("^0*", ""))).click();
         $("#subjectsInput").setValue(subjShort).pressEnter();
-        $(byText(hobby)).click();
+        $("#hobbiesWrapper").$(byText(hobby)).click();
         $("#currentAddress").scrollIntoView(false);
         $("#currentAddress").setValue(address);
         $("#uploadPicture").uploadFromClasspath(pictureName);
         $(byText("Select State")).scrollIntoView(false);
-        $(byText("Select State")).click();
-        $(byText(state)).click();
-        $(byText("Select City")).click();
-        $(byText(city)).click();
+        $("#stateCity-wrapper").$(byText("Select State")).click();
+        $("#stateCity-wrapper").$(byText(state)).click();
+        $("#stateCity-wrapper").$(byText("Select City")).click();
+        $("#stateCity-wrapper").$(byText(city)).click();
         $("#submit").click();
 
         //Asserting the results table is shown
