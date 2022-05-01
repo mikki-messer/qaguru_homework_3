@@ -23,6 +23,7 @@
 *.rar
 *.iml
 
+
 # Project gen files
 .idea
 .allure/
@@ -40,3 +41,6 @@ target/
 .vscode
 /gradlew
 /gradlew.bat
+
+#macOS files
+.DS_Store
