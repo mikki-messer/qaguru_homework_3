@@ -30,11 +30,14 @@ public class RegistrationFormPage {
     SelenideElement modalWindowDiv = $("#example-modal-sizes-title-lg");
     SelenideElement resultsTable = $(".table-responsive");
     SelenideElement closeModalWindowButton = $("#closeLargeModal");
+    //url
+    String pageUrl = "/automation-practice-form";
+    //labels
     String registrationFormHeader = "Student Registration Form";
     String resultsFormHeader = "Thanks for submitting the form";
     //actions
     public void openPage(){
-        open("/automation-practice-form");
+        open(pageUrl);
         registrationFormDiv.shouldHave(text(registrationFormHeader));
         //hide the banner on the small screen to check if the test works
         executeJavaScript("$('footer').remove()");

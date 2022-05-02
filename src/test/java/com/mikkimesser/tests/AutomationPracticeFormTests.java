@@ -25,6 +25,7 @@ public class AutomationPracticeFormTests {
 
     @Test
     void fillFormTest() throws ParseException {
+        //initializing test data
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
         String email = faker.internet().emailAddress();
