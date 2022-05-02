@@ -1,6 +1,7 @@
 package com.mikkimesser.pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -8,7 +9,23 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationFormPage {
     //locators
-
+    SelenideElement firstNameInput = $("#firstName");
+    SelenideElement lastNameInput = $("#lastName");
+    SelenideElement emailInput = $("#userEmail");
+    SelenideElement genderDiv = $("#genterWrapper");
+    SelenideElement phoneNumber = $("#userNumber");
+    SelenideElement dateOfBirthInput = $("#dateOfBirthInput");
+    SelenideElement subjectsInput = $("#subjectsInput");
+    SelenideElement hobbiesDiv = $("#hobbiesWrapper");
+    SelenideElement addressInput = $("#currentAddress");
+    SelenideElement uploadPictureInput = $("#uploadPicture");
+    SelenideElement stateAndCityDiv = $("#stateCity-wrapper");
+    SelenideElement stateInput = $("#state");
+    SelenideElement cityInput = $("#city");
+    SelenideElement submitButton = $("#submit");
+    SelenideElement modalWindowDiv = $("#example-modal-sizes-title-lg");
+    SelenideElement resultsTable = $(".table-responsive");
+    SelenideElement closeModalWindowButton = $("#closeLargeModal");
 
     //actions
     public void openPage(){
@@ -20,27 +37,27 @@ public class RegistrationFormPage {
     }
 
     public void setFirstName(String _firstName){
-        $("#firstName").setValue(_firstName);
+        firstNameInput.setValue(_firstName);
     }
 
     public void setLastName(String _lastName){
-        $("#lastName").setValue(_lastName);
+        lastNameInput.setValue(_lastName);
     }
 
     public void setEmail(String _email){
-        $("#userEmail").setValue(_email);
+        emailInput.setValue(_email);
     }
 
     public  void setGender(String _gender) {
-        $("#genterWrapper").$(byText(_gender)).click();
+        genderDiv.$(byText(_gender)).click();
     }
 
     public void setPhoneNumber(String _phoneNumber){
-        $("#userNumber").setValue(_phoneNumber);
+        phoneNumber.setValue(_phoneNumber);
     }
 
     public void setBirthDayDate(String _year, String _month, String _day){
-        $("#dateOfBirthInput").click();
+        dateOfBirthInput.click();
         $(".react-datepicker__month-select").selectOption(_month);
         $(".react-datepicker__year-select").selectOption(_year);
         $(".react-datepicker__day--0"+_day+":not(.react-datepicker__day--outside-month)").click();
@@ -48,47 +65,47 @@ public class RegistrationFormPage {
     }
 
     public  void setSubject(String _subject){
-        $("#subjectsInput").setValue(_subject).pressEnter();
+        subjectsInput.setValue(_subject).pressEnter();
     }
 
     public  void setHobby(String _hobby) {
-        $("#hobbiesWrapper").$(byText(_hobby)).click();
+        hobbiesDiv.$(byText(_hobby)).click();
     }
 
     public void setCurrentAddress(String _address){
-        $("#currentAddress").scrollIntoView(false);
-        $("#currentAddress").setValue(_address);
+        addressInput.scrollIntoView(false);
+        addressInput.setValue(_address);
     }
 
     public void uploadPicture(String _picturePath){
-        $("#uploadPicture").uploadFromClasspath(_picturePath);
+        uploadPictureInput.uploadFromClasspath(_picturePath);
     }
 
     public void selectState(String _state) {
-        $(byText("Select State")).scrollIntoView(false);
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText(_state)).click();
+        stateInput.scrollIntoView(false);
+        stateInput.click();
+        stateAndCityDiv.$(byText(_state)).click();
     }
 
     public  void selectCity(String _city){
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText(_city)).click();
+        cityInput.click();
+        stateAndCityDiv.$(byText(_city)).click();
     }
 
     public  void submitForm(){
-        $("#submit").click();
+        submitButton.click();
     }
     public void checkResultsTableShown() {
-        $("#example-modal-sizes-title-lg").shouldBe(Condition.visible);
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        modalWindowDiv.shouldBe(Condition.visible);
+        modalWindowDiv.shouldHave(text("Thanks for submitting the form"));
     }
     public void checkResult(String key, String value)
     {
-        $(".table-responsive").$(byText(key))
+        resultsTable.$(byText(key))
                 .parent().shouldHave(text(value));
     }
     public void closeResultsTable(){
-        $("#closeLargeModal").click();
-        $("#example-modal-sizes-title-lg").shouldNotBe(Condition.visible);
+        closeModalWindowButton.click();
+        modalWindowDiv.shouldNotBe(Condition.visible);
     }
 }

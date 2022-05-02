@@ -1,6 +1,5 @@
 package com.mikkimesser.tests;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import com.mikkimesser.pages.RegistrationFormPage;
@@ -13,9 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.*;
-import static com.codeborne.selenide.Selenide.*;
 
 public class AutomationPracticeFormTests {
 
@@ -33,6 +29,7 @@ public class AutomationPracticeFormTests {
         String lastName = faker.name().lastName();
         String email = faker.internet().emailAddress();
         String phoneNumber = faker.phoneNumber().subscriberNumber(10);
+        String address = faker.address().fullAddress();
 
         //faking dates
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -44,7 +41,6 @@ public class AutomationPracticeFormTests {
         String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
         String dt = String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH));
 
-        String address = faker.address().fullAddress();
         String state = "NCR";
         String city = "Gurgaon";
         String pictureName = "test.jpeg";
