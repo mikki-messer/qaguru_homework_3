@@ -2,13 +2,17 @@ package com.mikkimesser.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.mikkimesser.pages.components.CalendarComponent;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationFormPage {
+    //sharedComponents
+    CalendarComponent calendarComponent = new CalendarComponent();
     //locators
+    SelenideElement registrationFormDiv = $(".practice-form-wrapper");
     SelenideElement firstNameInput = $("#firstName");
     SelenideElement lastNameInput = $("#lastName");
     SelenideElement emailInput = $("#userEmail");
@@ -26,11 +30,12 @@ public class RegistrationFormPage {
     SelenideElement modalWindowDiv = $("#example-modal-sizes-title-lg");
     SelenideElement resultsTable = $(".table-responsive");
     SelenideElement closeModalWindowButton = $("#closeLargeModal");
-
+    String registrationFormHeader = "Student Registration Form";
+    String resultsFormHeader = "Thanks for submitting the form";
     //actions
     public void openPage(){
         open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+        registrationFormDiv.shouldHave(text(registrationFormHeader));
         //hide the banner on the small screen to check if the test works
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
@@ -56,12 +61,9 @@ public class RegistrationFormPage {
         phoneNumber.setValue(_phoneNumber);
     }
 
-    public void setBirthDayDate(String _year, String _month, String _day){
+    public void setBirthDayDate(String _day, String _month, String _year ){
         dateOfBirthInput.click();
-        $(".react-datepicker__month-select").selectOption(_month);
-        $(".react-datepicker__year-select").selectOption(_year);
-        $(".react-datepicker__day--0"+_day+":not(.react-datepicker__day--outside-month)").click();
-
+        calendarComponent.setDate(_day, _month, _year);
     }
 
     public  void setSubject(String _subject){
@@ -97,7 +99,7 @@ public class RegistrationFormPage {
     }
     public void checkResultsTableShown() {
         modalWindowDiv.shouldBe(Condition.visible);
-        modalWindowDiv.shouldHave(text("Thanks for submitting the form"));
+        modalWindowDiv.shouldHave(text(resultsFormHeader));
     }
     public void checkResult(String key, String value)
     {

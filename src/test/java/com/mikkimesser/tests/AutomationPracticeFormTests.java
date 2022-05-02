@@ -58,7 +58,7 @@ public class AutomationPracticeFormTests {
         registrationFormPage.setGender(gender);
         registrationFormPage.setPhoneNumber(phoneNumber);
 
-        registrationFormPage.setBirthDayDate(year, month, dt);
+        registrationFormPage.setBirthDayDate(dt, month, year);
 
         registrationFormPage.setSubject(subject.substring(0,2));
         registrationFormPage.setHobby(hobby);
@@ -72,15 +72,18 @@ public class AutomationPracticeFormTests {
         registrationFormPage.checkResultsTableShown();
 
         //Asserting the field values
-        registrationFormPage.checkResult("Student Name", firstName+" "+lastName);
+        registrationFormPage.checkResult("Student Name",
+                String.format("%s %s", firstName, lastName));
         registrationFormPage.checkResult("Student Email", email);
         registrationFormPage.checkResult("Mobile", phoneNumber);
-        registrationFormPage.checkResult("Date of Birth", dt+" "+month+","+year);
+        registrationFormPage.checkResult("Date of Birth",
+                String.format("%s %s,%s", dt, month, year));
         registrationFormPage.checkResult("Subjects", subject);
         registrationFormPage.checkResult("Hobbies", hobby);
         registrationFormPage.checkResult("Picture", pictureName);
         registrationFormPage.checkResult("Address", address);
-        registrationFormPage.checkResult("State and City", state+" "+city);
+        registrationFormPage.checkResult("State and City",
+                String.format("%s %s", state, city));
 
         //closing the form and asserting it closes
         registrationFormPage.closeResultsTable();
