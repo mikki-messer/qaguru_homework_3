@@ -17,7 +17,7 @@ public class RegistrationFormPage {
     SelenideElement lastNameInput = $("#lastName");
     SelenideElement emailInput = $("#userEmail");
     SelenideElement genderDiv = $("#genterWrapper");
-    SelenideElement phoneNumber = $("#userNumber");
+    SelenideElement phoneNumberInput = $("#userNumber");
     SelenideElement dateOfBirthInput = $("#dateOfBirthInput");
     SelenideElement subjectsInput = $("#subjectsInput");
     SelenideElement hobbiesDiv = $("#hobbiesWrapper");
@@ -58,7 +58,7 @@ public class RegistrationFormPage {
     }
 
     public void setPhoneNumber(String _phoneNumber){
-        phoneNumber.setValue(_phoneNumber);
+        phoneNumberInput.setValue(_phoneNumber);
     }
 
     public void setBirthDayDate(String _day, String _month, String _year ){
@@ -101,13 +101,83 @@ public class RegistrationFormPage {
         modalWindowDiv.shouldBe(Condition.visible);
         modalWindowDiv.shouldHave(text(resultsFormHeader));
     }
+
     public void checkResult(String key, String value)
     {
         resultsTable.$(byText(key))
                 .parent().shouldHave(text(value));
     }
+
     public void closeResultsTable(){
         closeModalWindowButton.click();
         modalWindowDiv.shouldNotBe(Condition.visible);
+    }
+
+    public void registerNewUser(String _firstName,
+                                String _lastName,
+                                String _email,
+                                String _phoneNumber,
+                                String _address,
+                                String _dayOfBirth,
+                                String _monthOfBirth,
+                                String _yearOfBirth,
+                                String _state,
+                                String _city,
+                                String _picturePath,
+                                String _gender,
+                                String _subject,
+                                String _hobby)
+
+    {
+        setFirstName(_firstName);
+        setLastName(_lastName);
+        setEmail(_email);
+        setGender(_gender);
+        setPhoneNumber(_phoneNumber);
+
+        setBirthDayDate(_dayOfBirth,
+                _monthOfBirth,
+                _yearOfBirth);
+
+        setSubject(_subject.substring(0,2));
+        setHobby(_hobby);
+        setCurrentAddress(_address);
+        uploadPicture(_picturePath);
+        selectState(_state);
+        selectCity(_city);
+        submitForm();
+    }
+
+    public void checkRegistrationResults(String _firstName,
+                                         String _lastName,
+                                         String _email,
+                                         String _phoneNumber,
+                                         String _address,
+                                         String _dayOfBirth,
+                                         String _monthOfBirth,
+                                         String _yearOfBirth,
+                                         String _state,
+                                         String _city,
+                                         String _picturePath,
+                                         String _gender,
+                                         String _subject,
+                                         String _hobby) {
+        //Asserting the results table is shown
+        checkResultsTableShown();
+
+        //Asserting the field values
+        checkResult("Student Name",
+                String.format("%s %s", _firstName, _lastName));
+        checkResult("Student Email", _email);
+        checkResult("Gender", _gender);
+        checkResult("Mobile", _phoneNumber);
+        checkResult("Date of Birth",
+                String.format("%s %s,%s", _dayOfBirth, _monthOfBirth, _yearOfBirth));
+        checkResult("Subjects", _subject);
+        checkResult("Hobbies", _hobby);
+        checkResult("Picture", _picturePath);
+        checkResult("Address", _address);
+        checkResult("State and City",
+                String.format("%s %s", _state, _city));
     }
 }

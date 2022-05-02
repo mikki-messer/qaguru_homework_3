@@ -39,53 +39,53 @@ public class AutomationPracticeFormTests {
         calendar.setTime(randomDate);
         String year = String.valueOf(calendar.get(Calendar.YEAR));
         String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-        String dt = String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH));
+        String day = String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH));
 
         String state = "NCR";
         String city = "Gurgaon";
-        String pictureName = "test.jpeg";
+        String picturePath = "test.jpeg";
         String subject = "Maths";
         String gender = "Male";
         String hobby = "Reading";
 
+        //opening the registration page
         RegistrationFormPage registrationFormPage = new RegistrationFormPage();
         registrationFormPage.openPage();
 
         //filling the fields
-        registrationFormPage.setFirstName(firstName);
-        registrationFormPage.setLastName(lastName);
-        registrationFormPage.setEmail(email);
-        registrationFormPage.setGender(gender);
-        registrationFormPage.setPhoneNumber(phoneNumber);
+        registrationFormPage.registerNewUser(firstName,
+                lastName,
+                email,
+                phoneNumber,
+                address,
+                day,
+                month,
+                year,
+                state,
+                city,
+                picturePath,
+                gender,
+                subject,
+                hobby
+                );
 
-        registrationFormPage.setBirthDayDate(dt, month, year);
+        //checking the results
+        registrationFormPage.checkRegistrationResults(firstName,
+                lastName,
+                email,
+                phoneNumber,
+                address,
+                day,
+                month,
+                year,
+                state,
+                city,
+                picturePath,
+                gender,
+                subject,
+                hobby);
 
-        registrationFormPage.setSubject(subject.substring(0,2));
-        registrationFormPage.setHobby(hobby);
-        registrationFormPage.setCurrentAddress(address);
-        registrationFormPage.uploadPicture(pictureName);
-        registrationFormPage.selectState(state);
-        registrationFormPage.selectCity(city);
-        registrationFormPage.submitForm();
-
-        //Asserting the results table is shown
-        registrationFormPage.checkResultsTableShown();
-
-        //Asserting the field values
-        registrationFormPage.checkResult("Student Name",
-                String.format("%s %s", firstName, lastName));
-        registrationFormPage.checkResult("Student Email", email);
-        registrationFormPage.checkResult("Mobile", phoneNumber);
-        registrationFormPage.checkResult("Date of Birth",
-                String.format("%s %s,%s", dt, month, year));
-        registrationFormPage.checkResult("Subjects", subject);
-        registrationFormPage.checkResult("Hobbies", hobby);
-        registrationFormPage.checkResult("Picture", pictureName);
-        registrationFormPage.checkResult("Address", address);
-        registrationFormPage.checkResult("State and City",
-                String.format("%s %s", state, city));
-
-        //closing the form and asserting it closes
+        //closing the results form and asserting it closes
         registrationFormPage.closeResultsTable();
     }
 }
